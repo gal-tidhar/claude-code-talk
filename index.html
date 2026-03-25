@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>From Code to Running Feature</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700;900&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/monokai.css">
+
+  <style>
+    :root {
+      --bg: #080808;
+      --surface: #111111;
+      --surface-2: #1a1a1a;
+      --border: #1e1e1e;
+      --border-bright: #2a2a2a;
+      --text: #F0EDE8;
+      --text-muted: #555550;
+      --text-secondary: #8A8680;
+      --accent: #FF7A1A;
+      --accent-dim: rgba(255, 122, 26, 0.12);
+      --green: #4AFF91;
+      --green-dim: rgba(74, 255, 145, 0.10);
+      --font-display: 'Unbounded', sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+    }
+
+    .reveal-viewport {
+      background: var(--bg);
+    }
+
+    /* Subtle grid background */
+    .reveal-viewport::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 64px 64px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .reveal {
+      font-family: var(--font-mono);
+      font-size: 28px;
+      color: var(--text);
+    }
+
+    .reveal .slides {
+      text-align: left;
+    }
+
+    .reveal section {
+      padding: 56px 72px;
+      height: 100%;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    /* Typography */
+    .reveal h1, .reveal h2, .reveal h3 {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      letter-spacing: -0.025em;
+      margin: 0;
+      line-height: 0.92;
+      color: var(--text);
+      text-align: left;
+    }
+
+    .reveal h1 { font-size: 3em; font-weight: 900; }
+    .reveal h2 { font-size: 2em; font-weight: 700; }
+
+    .reveal p {
+      font-family: var(--font-mono);
+      font-weight: 300;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      margin: 0.5em 0;
+      text-align: left;
+    }
+
+    em { font-style: normal; color: var(--accent); }
+    strong { font-weight: 500; color: var(--text); }
+
+    /* Tag / eyebrow */
+    .tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.38em;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(255,122,26,0.4);
+      padding: 4px 10px;
+      border-radius: 2px;
+      margin-bottom: 24px;
+    }
+
+    /* Horizontal rule */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border-bright);
+      margin: 20px 0;
+    }
+
+    /* Callout box */
+    .callout {
+      background: var(--accent-dim);
+      border: 1px solid rgba(255,122,26,0.25);
+      border-left: 3px solid var(--accent);
+      border-radius: 3px;
+      padding: 16px 20px;
+      font-family: var(--font-mono);
+      font-size: 0.52em;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .callout em { color: var(--accent); }
+
+    /* Slide number */
+    .slide-num {
+      position: absolute;
+      top: 28px;
+      right: 48px;
+      font-family: var(--font-mono);
+      font-size: 0.32em;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+    }
+
+    /* ─── TITLE SLIDE ─── */
+    .slide-title {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      height: 100%;
+    }
+
+    .slide-title .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.38em;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .slide-title h1 { font-size: 2.6em; }
+
+    .slide-title .subtitle {
+      font-family: var(--font-mono);
+      font-size: 0.42em;
+      font-weight: 300;
+      color: var(--text-secondary);
+      margin-top: 20px;
+      max-width: 560px;
+      line-height: 1.7;
+    }
+
+    .slide-title .meta {
+      font-family: var(--font-mono);
+      font-size: 0.32em;
+      color: var(--text-muted);
+      margin-top: 36px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-bright);
+      display: flex;
+      gap: 28px;
+    }
+
+    /* Title accent line */
+    .title-accent {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+    }
+
+    /* ─── PROBLEM SLIDE ─── */
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      margin: 12px 0;
+      font-family: var(--font-mono);
+      font-size: 0.52em;
+      font-weight: 300;
+    }
+
+    .feature-list li {
+      padding: 10px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .feature-list li:last-child { border-bottom: none; }
+
+    .feature-list li .bullet {
+      color: var(--accent);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ─── GAP SLIDE ─── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    .col-label {
+      font-family: var(--font-mono);
+      font-size: 0.36em;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border-bright);
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+    }
+
+    .step-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-family: var(--font-mono);
+      font-size: 0.5em;
+      font-weight: 300;
+    }
+
+    .step-list li {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .step-list li:last-child { border-bottom: none; }
+
+    .step-list li::before {
+      content: '→';
+      color: var(--green);
+      flex-shrink: 0;
+    }
+
+    .step-list li.problem {
+      color: #666;
+      text-decoration: line-through;
+      text-decoration-color: #FF4545;
+    }
+
+    .step-list li.problem::before {
+      content: '✗';
+      color: #FF4545;
+    }
+
+    /* ─── TERMINAL WINDOW ─── */
+    .terminal {
+      background: #0A0E14;
+      border: 1px solid var(--border-bright);
+      border-radius: 6px;
+      overflow: hidden;
+      font-size: 0.46em;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+    }
+
+    .terminal-bar {
+      background: #111318;
+      padding: 10px 16px;
+      display: flex;
+      gap: 7px;
+      align-items: center;
+      border-bottom: 1px solid var(--border-bright);
+    }
+
+    .terminal-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+    }
+
+    .terminal-dot.red    { background: #FF5F56; }
+    .terminal-dot.yellow { background: #FFBD2E; }
+    .terminal-dot.green  { background: #27C93F; }
+
+    .terminal-title {
+      margin-left: 10px;
+      font-family: var(--font-mono);
+      font-size: 0.85em;
+      color: var(--text-muted);
+    }
+
+    .terminal-body {
+      padding: 18px 22px;
+      font-family: var(--font-mono);
+      line-height: 1.75;
+      color: #CDD9E5;
+    }
+
+    .terminal-body .prompt  { color: var(--green); }
+    .terminal-body .cmd     { color: #F0EDE8; }
+    .terminal-body .output  { color: #636E7B; }
+    .terminal-body .success { color: var(--green); }
+    .terminal-body .warn    { color: var(--accent); }
+    .terminal-body .comment { color: #444; }
+
+    /* ─── SYSTEM FLOW ─── */
+    .system-flow {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.46em;
+    }
+
+    .flow-box {
+      background: var(--surface);
+      border: 1px solid var(--border-bright);
+      border-radius: 3px;
+      padding: 12px 16px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .flow-box strong { color: var(--text); }
+
+    .flow-box.accent {
+      border-color: rgba(255,122,26,0.4);
+      background: var(--accent-dim);
+    }
+
+    .flow-box.accent strong { color: var(--accent); }
+
+    .flow-box.greened {
+      border-color: rgba(74,255,145,0.3);
+      background: var(--green-dim);
+    }
+
+    .flow-box.greened strong { color: var(--green); }
+
+    .flow-arrow {
+      text-align: center;
+      color: var(--text-muted);
+      line-height: 1;
+      font-size: 1.1em;
+    }
+
+    /* ─── CODE BLOCKS ─── */
+    .reveal pre {
+      background: #0A0E14;
+      border: 1px solid var(--border-bright);
+      border-left: 3px solid var(--green);
+      border-radius: 4px;
+      padding: 16px 20px;
+      font-size: 0.48em;
+      width: 100%;
+      box-shadow: none;
+      margin: 0;
+    }
+
+    .reveal code {
+      font-family: var(--font-mono);
+    }
+
+    /* ─── WHAT WAS SHIPPED ─── */
+    .shipped-list {
+      list-style: none;
+      padding: 0;
+      margin: 8px 0;
+      font-family: var(--font-mono);
+      font-size: 0.5em;
+      font-weight: 300;
+    }
+
+    .shipped-list li {
+      padding: 10px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .shipped-list li:last-child { border-bottom: none; }
+
+    .shipped-list .num {
+      font-family: var(--font-display);
+      font-size: 0.9em;
+      font-weight: 700;
+      color: var(--accent);
+      flex-shrink: 0;
+      width: 28px;
+      margin-top: 1px;
+    }
+
+    /* ─── UNLOCK CARDS ─── */
+    .unlock-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .unlock-card {
+      background: var(--surface);
+      border: 1px solid var(--border-bright);
+      border-radius: 4px;
+      padding: 20px 18px;
+    }
+
+    .unlock-card .icon {
+      font-size: 1.3em;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .unlock-card .title {
+      font-family: var(--font-display);
+      font-size: 0.42em;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .unlock-card .desc {
+      font-family: var(--font-mono);
+      font-size: 0.38em;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    /* ─── DEMO SLIDE ─── */
+    .demo-slide {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      text-align: center;
+    }
+
+    .demo-badge {
+      font-family: var(--font-display);
+      font-size: 7em;
+      font-weight: 900;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: -0.04em;
+      line-height: 0.85;
+      text-shadow: 0 0 120px rgba(255,122,26,0.3);
+    }
+
+    .demo-sub {
+      font-family: var(--font-mono);
+      font-size: 0.42em;
+      font-weight: 300;
+      color: var(--text-muted);
+      margin-top: 20px;
+      max-width: 560px;
+      line-height: 1.6;
+    }
+
+    /* ─── TAKEAWAY SLIDE ─── */
+    .big-quote {
+      font-family: var(--font-display);
+      font-size: 1.45em;
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 1.0;
+      letter-spacing: -0.025em;
+    }
+
+    /* ─── REVEAL OVERRIDES ─── */
+    .reveal .progress {
+      background: #111;
+      height: 2px;
+    }
+
+    .reveal .progress span {
+      background: var(--accent);
+    }
+
+    .reveal .controls {
+      color: var(--accent);
+    }
+
+    .reveal .fragment {
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+
+    .reveal .fragment.visible {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 1: TITLE
+    ═══════════════════════════════════════════ -->
+    <section>
+      <div class="title-accent"></div>
+      <div class="slide-title">
+        <div class="eyebrow">Claude Code Meetup · 2026</div>
+        <h1>From Code<br>to Running<br>Feature</h1>
+        <p class="subtitle">
+          How I gave Claude Code a fully running full-stack app
+          so it could test itself — and started shipping entire features autonomously.
+        </p>
+        <div class="meta">
+          <span>Gal Tidhar</span>
+          <span>Sedric AI</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 2: THE PROBLEM
+    ═══════════════════════════════════════════ -->
+    <section>
+      <span class="slide-num">01 / 11</span>
+      <span class="tag">The Problem</span>
+      <h2>Claude can write.<br>Can it <em>ship</em>?</h2>
+      <div class="divider"></div>
+      <ul class="feature-list">
+        <li>
+          <span class="bullet">→</span>
+          Most Claude Code sessions: write code, you run it manually, report back
+        </li>
+        <li>
+          <span class="bullet">→</span>
+          Claude has no eyes — it can't see if the change actually worked
+        </li>
+        <li>
+          <span class="bullet">→</span>
+          You are the feedback loop. That doesn't scale to full features.
+        </li>
+      </ul>
+      <div style="margin-top: 28px;">
+        <div class="callout">
+          Writing code and shipping a feature are two different things.<br>
+          The gap between them is <em>you</em>.
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 3: THE GAP
+    ═══════════════════════════════════════════ -->
+    <section>
+      <span class="slide-num">02 / 11</span>
+      <span class="tag">The Gap</span>
+      <h2>What being<br>the glue looks like</h2>
+      <div class="divider"></div>
+      <div class="two-col" style="margin-top: 8px;">
+        <div>
+          <div class="col-label">Without a running stack</div>
+          <ul class="step-list">
+            <li>Claude writes code</li>
+            <li class="problem">Start backend manually</li>
+            <li class="problem">Load env vars manually</li>
+            <li class="problem">Start frontend manually</li>
+            <li class="problem">Open browser, check it</li>
+            <li class="problem">Report back to Claude</li>
+            <li class="problem">Repeat every change</li>
+          </ul>
+        </div>
+        <div>
+          <div class="col-label">With a running stack</div>
+          <ul class="step-list">
+            <li>Claude writes code</li>
+            <li>Stack already running</li>
+            <li>Claude observes the result</li>
+            <li>Claude iterates itself</li>
+            <li>You review when done</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 4: THE SOLUTION — ONE COMMAND
+    ═══════════════════════════════════════════ -->
+    <section>
+      <span class="slide-num">03 / 11</span>
+      <span class="tag">The Solution</span>
+      <h2>One command.<br>Full stack. Every time.</h2>
+      <div class="divider"></div>
+      <div class="terminal" style="margin-top: 12px;">
+        <div class="terminal-bar">
+          <div class="terminal-dot red"></div>
+          <div class="terminal-dot yellow"></div>
+          <div class="terminal-dot green"></div>
+        </div>
+        <div class="terminal-body">
+          <div><span class="prompt">$ </span><span class="cmd">npm run dev:develop</span></div>
+          <br>
+          <div class="output">▶ Resolving environment from AWS SSM...</div>
+          <div class="success">✓ .env.develop written — Firebase, Snowflake, OpenAI all loaded</div>
+          <div class="output">▶ Starting FastAPI backend...</div>
+          <div class="output">▶ Health check loop: waiting for /health → 200...</div>
+          <div class="success">✓ Backend healthy at http://localhost:8000</div>
+          <div class="output">▶ Starting Vite frontend dev server...</div>
+          <div class="success">✓ Frontend ready at http://localhost:5173</div>
+          <br>
+          <div class="success">🟢 Full stack running. Hot reload enabled. Claude, you're up.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 5: UNDER THE HOOD
+    ═══════════════════════════════════════════ -->
+    <section>
+      <span class="slide-num">04 / 11</span>
+      <span class="tag">Under the Hood</span>
+      <h2>What happens inside<br>that command</h2>
+      <div class="divider"></div>
+      <div class="system-flow" style="margin-top: 4px;">
+        <div class="flow-box accent">
+          <strong>setup-environment.sh</strong> — pulls secrets from AWS SSM, resolves template into .env.develop. No manual credentials ever.
+        </div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-box accent">
+          <strong>run-backend.sh</strong> — sources .env.develop, starts uvicorn. Firebase, Snowflake, AWS all connected.
+        </div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-box greened">
+          <strong>health check loop</strong> — frontend waits until GET /health returns 200. No race conditions. No silent failures.
+        </div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-box greened">
+          <strong>run-frontend.sh</strong> — Vite dev server with hot reload. Claude's code changes appear in browser instantly.
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 6: ENVIRONMENT SYSTEM
+    ═══════════════════════════════════════════ -->
+    <section>
+      <span class="slide-num">05 / 11</span>
+      <span class="tag">Secrets Without Ceremony</span>
+      <h2>The environment<br>template system</h2>
+      <div class="divider"></div>
+      <div class="two-col" style="margin-top: 8px;">
+        <div>
+          <p style="font-size: 0.42em; color: var(--text-muted); margin-bottom: 10px; letter-spacing: 0.1em; text-transform: uppercase;">Template (checked into git)</p>
+          <pre><code class="language-bash">FIREBASE_PROJECT_ID=
+  {{SSM:/sedric/dev/firebase/project}}
+
+SNOWFLAKE_ACCOUNT=
+  {{SSM:/sedric/dev/snowflake/account}}
+
+OPENAI_API_KEY=
+  {{SSM:/sedric/dev/openai/key}}</code></pre>
+        </div>
+        <div>
+          <p style="font-size: 0.42em; color: var(--text-muted); margin-bottom: 10px; letter-spacing: 0.1em; text-transform: uppercase;">resolve_env.sh produces .env</p>
+          <pre><code class="language-bash">FIREBASE_PROJECT_ID=
+  "sedric-develop-abc123"
+
+SNOWFLAKE_ACCOUNT=
+  "xy12345.us-east-1"
+
+OPENAI_API_KEY=
+  "sk-proj-..."</code></pre>
+        </div>
+      </div>
+      <div class="callout" style="margin-top: 16px;">
+        Secrets stay in AWS SSM. Templates live in git. <em>No .env files ever committed.</em><br>
+        New engineer: run setup once. Claude: run setup once. Same result, every machine.
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 7: CLAUDE.MD CONTRACT
+    ═══════════════════════════════════════════ -->
+    <section>
+      <span class="slide-num">06 / 11</span>
+      <span class="tag">The Contract</span>
+      <h2>CLAUDE.md as<br>operating manual</h2>
+      <div class="divider"></div>
+      <div class="terminal">
+        <div class="terminal-bar">
+          <div class="terminal-dot red"></div>
+          <div class="terminal-dot yellow"></div>
+          <div class="terminal-dot green"></div>
+          <span class="terminal-title">CLAUDE.md</span>
+        </div>
+        <div class="terminal-body">
+          <div class="warn">## 🚨 CRITICAL: SERVER STARTUP — NEVER DO IT ANY OTHER WAY</div>
+          <div class="output"> </div>
+          <div class="output">MANDATE: Always start the development server using</div>
+          <div class="output">npm scripts. NEVER start uvicorn directly.</div>
+          <div class="output"> </div>
+          <div class="success">## The ONLY Way to Start the Server</div>
+          <div class="output"> </div>
+          <div class="cmd">  npm run setup:develop   <span class="comment"># first time only</span></div>
+          <div class="cmd">  npm run dev:develop     <span class="comment"># every time after</span></div>
+          <div class="output"> </div>
+          <div class="warn">## NEVER Do These</div>
+          <div class="output">  ❌  uvicorn main:app --reload</div>
+          <div class="output">  ❌  source .env.develop &amp;&amp; python main.py</div>
+          <div class="output">  ❌  any manual attempt to start the server</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 8: DEMO
+    ═══════════════════════════════════════════ -->
+    <section data-background-color="#080808">
+      <div class="demo-slide">
+        <div class="demo-badge">DEMO</div>
+        <div class="demo-sub">
+          Start the stack → give Claude a task → watch it close the loop without us
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 9: WHAT THIS SHIPPED
+    ═══════════════════════════════════════════ -->
+    <section>
+      <span class="slide-num">08 / 11</span>
+      <span class="tag">Real Output</span>
+      <h2>A complete feature,<br>start to production</h2>
+      <div class="divider"></div>
+      <ul class="shipped-list">
+        <li>
+          <span class="num">01</span>
+          <span><strong>CloudFormation DynamoDB table</strong> — STT vendor config with retention and update policies</span>
+        </li>
+        <li>
+          <span class="num">02</span>
+          <span><strong>FastAPI CRUD backend</strong> — create, read, update, delete with composite key validation</span>
+        </li>
+        <li>
+          <span class="num">03</span>
+          <span><strong>React UI with side panel</strong> — search, filter, inline editing, key-field locking in edit mode</span>
+        </li>
+        <li>
+          <span class="num">04</span>
+          <span><strong>Migration script</strong> — deduplicated 1,736 source records → 597 unique configs written to DynamoDB</span>
+        </li>
+        <li>
+          <span class="num">05</span>
+          <span><strong>Production migration</strong> — SSO-authenticated write to stt-vendor-model-config-prod</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 10: WHAT THIS UNLOCKS
+    ═══════════════════════════════════════════ -->
+    <section>
+      <span class="slide-num">09 / 11</span>
+      <span class="tag">What Changes</span>
+      <h2>What a running stack<br>unlocks for Claude</h2>
+      <div class="divider"></div>
+      <div class="unlock-grid">
+        <div class="unlock-card fragment">
+          <span class="icon">⚡</span>
+          <div class="title">Tight feedback loop</div>
+          <div class="desc">Claude makes a change, sees the result, corrects itself. You stop being the relay between AI output and browser.</div>
+        </div>
+        <div class="unlock-card fragment">
+          <span class="icon">🔬</span>
+          <div class="title">Self-verification</div>
+          <div class="desc">Claude can hit the API, inspect the UI, read logs. It knows if what it wrote actually works before calling it done.</div>
+        </div>
+        <div class="unlock-card fragment">
+          <span class="icon">🚀</span>
+          <div class="title">Full-feature delivery</div>
+          <div class="desc">Not just isolated snippets. Entire features — infra to UI to production data migration — in one session.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 11: THE TAKEAWAY
+    ═══════════════════════════════════════════ -->
+    <section>
+      <span class="slide-num">10 / 11</span>
+      <span class="tag">One Thing to Take Home</span>
+      <div style="margin-top: 48px;">
+        <div class="big-quote">
+          The bottleneck<br>
+          isn't what Claude<br>
+          can <em>write</em>.
+        </div>
+        <div style="margin-top: 36px;" class="fragment">
+          <div class="big-quote">
+            It's whether Claude<br>
+            can <em>observe</em><br>
+            what it wrote.
+          </div>
+        </div>
+        <div style="margin-top: 36px;" class="fragment">
+          <div class="callout">
+            Give it a running app and the gap closes fast.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 12: THANK YOU
+    ═══════════════════════════════════════════ -->
+    <section>
+      <div class="title-accent"></div>
+      <div class="slide-title">
+        <div class="eyebrow">Claude Code Meetup · 2026</div>
+        <h1>Thanks.</h1>
+        <p class="subtitle">
+          Questions? Happy to dig into the setup.<br>
+          Everything shown here is a pattern you can steal and adapt.
+        </p>
+        <div class="meta">
+          <span>Gal Tidhar</span>
+          <span>Sedric AI</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    transition: 'fade',
+    transitionSpeed: 'fast',
+    backgroundTransition: 'none',
+    progress: true,
+    controls: true,
+    center: false,
+    width: 1280,
+    height: 720,
+    margin: 0,
+    plugins: [RevealNotes, RevealHighlight],
+  });
+</script>
+</body>
+</html>
