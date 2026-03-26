@@ -739,10 +739,9 @@ OPENAI_API_KEY="sk-proj-..."</code></pre>
         <div class="demo-sub" style="max-width: 680px; color: var(--text-secondary);">
           npm run dev:develop → Claude gets a task → watches itself ship it
         </div>
-        <button onclick="document.getElementById('demo-normal').style.display='none'; document.getElementById('demo-broken').style.display='flex';"
-          style="margin-top: 40px; background: transparent; border: 1px solid var(--border-bright); color: var(--text-muted); font-family: var(--font-mono); font-size: 0.35em; padding: 10px 20px; border-radius: 3px; cursor: pointer; letter-spacing: 0.1em;">
-          🔥 DEMO IS ON FIRE
-        </button>
+        <div style="margin-top: 40px; font-family: var(--font-mono); font-size: 0.3em; color: var(--text-muted); letter-spacing: 0.12em;">
+          PRESS <span style="color: var(--accent); border: 1px solid rgba(255,122,26,0.4); padding: 2px 7px; border-radius: 2px;">F</span> IF THINGS GO WRONG
+        </div>
       </div>
       <!-- BROKEN DEMO FALLBACK STATE -->
       <div class="demo-slide" id="demo-broken" style="display: none; flex-direction: column;">
@@ -881,6 +880,23 @@ OPENAI_API_KEY="sk-proj-..."</code></pre>
     height: 720,
     margin: 0,
     plugins: [RevealNotes, RevealHighlight],
+  });
+
+  // Demo slide state toggle
+  // F = demo is on fire (show fallback)
+  // R = reset back to normal demo state
+  document.addEventListener('keydown', function(e) {
+    const normal = document.getElementById('demo-normal');
+    const broken = document.getElementById('demo-broken');
+    if (!normal || !broken) return;
+    if (e.key === 'f' || e.key === 'F') {
+      normal.style.display = 'none';
+      broken.style.display = 'flex';
+    }
+    if (e.key === 'r' || e.key === 'R') {
+      broken.style.display = 'none';
+      normal.style.display = 'flex';
+    }
   });
 </script>
 </body>
