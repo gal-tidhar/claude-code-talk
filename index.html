@@ -543,42 +543,12 @@
     </section>
 
     <!-- ═══════════════════════════════════════════
-         SLIDE 2: THE PROBLEM
+         SLIDE 2: THE PROBLEM + THE GAP
     ═══════════════════════════════════════════ -->
     <section>
-      <span class="slide-num">01 / 11</span>
+      <span class="slide-num">01 / 10</span>
       <span class="tag">The Problem</span>
       <h2>Claude can write.<br>Can it <em>ship</em>?</h2>
-      <div class="divider"></div>
-      <ul class="feature-list">
-        <li>
-          <span class="bullet">→</span>
-          Most Claude Code sessions: write code, you run it manually, report back
-        </li>
-        <li>
-          <span class="bullet">→</span>
-          Claude has no eyes — it can't see if the change actually worked
-        </li>
-        <li>
-          <span class="bullet">→</span>
-          You are the feedback loop. That doesn't scale to full features.
-        </li>
-      </ul>
-      <div style="margin-top: 28px;">
-        <div class="callout">
-          Writing code and shipping a feature are two different things.<br>
-          The gap between them is <em>you</em>.
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════
-         SLIDE 3: THE GAP
-    ═══════════════════════════════════════════ -->
-    <section>
-      <span class="slide-num">02 / 11</span>
-      <span class="tag">The Gap</span>
-      <h2>What being<br>the glue looks like</h2>
       <div class="divider"></div>
       <div class="two-col" style="margin-top: 8px;">
         <div>
@@ -604,13 +574,16 @@
           </ul>
         </div>
       </div>
+      <div class="callout" style="margin-top: 16px;">
+        Writing code and shipping a feature are two different things. The gap between them is <em>you</em>.
+      </div>
     </section>
 
     <!-- ═══════════════════════════════════════════
          SLIDE 4: THE SOLUTION — ONE COMMAND
     ═══════════════════════════════════════════ -->
     <section>
-      <span class="slide-num">03 / 11</span>
+      <span class="slide-num">02 / 10</span>
       <span class="tag">The Solution</span>
       <h2>One command.<br>Full stack. Every time.</h2>
       <div class="divider"></div>
@@ -637,67 +610,56 @@
     </section>
 
     <!-- ═══════════════════════════════════════════
-         SLIDE 5: UNDER THE HOOD
+         SLIDE 4: UNDER THE HOOD + ENV SYSTEM
     ═══════════════════════════════════════════ -->
     <section>
-      <span class="slide-num">04 / 11</span>
-      <span class="tag">Under the Hood</span>
-      <h2>What happens inside<br>that command</h2>
-      <div class="divider"></div>
-      <div class="system-flow" style="margin-top: 4px;">
-        <div class="flow-box accent">
-          <strong>setup-environment.sh</strong> — pulls secrets from AWS SSM, resolves template into .env.develop. No manual credentials ever.
-        </div>
-        <div class="flow-arrow">↓</div>
-        <div class="flow-box accent">
-          <strong>run-backend.sh</strong> — sources .env.develop, starts uvicorn. Firebase, Snowflake, AWS all connected.
-        </div>
-        <div class="flow-arrow">↓</div>
-        <div class="flow-box greened">
-          <strong>health check loop</strong> — frontend waits until GET /health returns 200. No race conditions. No silent failures.
-        </div>
-        <div class="flow-arrow">↓</div>
-        <div class="flow-box greened">
-          <strong>run-frontend.sh</strong> — Vite dev server with hot reload. Claude's code changes appear in browser instantly.
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════
-         SLIDE 6: ENVIRONMENT SYSTEM
-    ═══════════════════════════════════════════ -->
-    <section>
-      <span class="slide-num">05 / 11</span>
-      <span class="tag">Secrets Without Ceremony</span>
-      <h2>The environment<br>template system</h2>
+      <span class="slide-num">03 / 10</span>
+      <span class="tag">How It Works</span>
+      <h2>Orchestration +<br>secrets without ceremony</h2>
       <div class="divider"></div>
       <div class="two-col" style="margin-top: 8px;">
         <div>
-          <p style="font-size: 0.42em; color: var(--text-muted); margin-bottom: 10px; letter-spacing: 0.1em; text-transform: uppercase;">Template (checked into git)</p>
-          <pre><code class="language-bash">FIREBASE_PROJECT_ID=
-  {{SSM:/sedric/dev/firebase/project}}
-
-SNOWFLAKE_ACCOUNT=
-  {{SSM:/sedric/dev/snowflake/account}}
-
-OPENAI_API_KEY=
-  {{SSM:/sedric/dev/openai/key}}</code></pre>
+          <div class="col-label">Startup sequence</div>
+          <div class="system-flow">
+            <div class="flow-box accent">
+              <strong>setup-environment.sh</strong><br>
+              Pulls secrets from AWS SSM → .env.develop
+            </div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-box accent">
+              <strong>run-backend.sh</strong><br>
+              Sources .env, starts uvicorn
+            </div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-box greened">
+              <strong>health check loop</strong><br>
+              Waits for /health → 200. No race conditions.
+            </div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-box greened">
+              <strong>run-frontend.sh</strong><br>
+              Vite + hot reload. Changes appear instantly.
+            </div>
+          </div>
         </div>
         <div>
-          <p style="font-size: 0.42em; color: var(--text-muted); margin-bottom: 10px; letter-spacing: 0.1em; text-transform: uppercase;">resolve_env.sh produces .env</p>
-          <pre><code class="language-bash">FIREBASE_PROJECT_ID=
-  "sedric-develop-abc123"
-
+          <div class="col-label">SSM template pattern</div>
+          <p style="font-size: 0.38em; color: var(--text-muted); margin-bottom: 8px;">Template checked into git:</p>
+          <pre style="font-size: 0.4em;"><code class="language-bash">FIREBASE_PROJECT_ID=
+  {{SSM:/sedric/dev/firebase/project}}
 SNOWFLAKE_ACCOUNT=
-  "xy12345.us-east-1"
-
+  {{SSM:/sedric/dev/snowflake/account}}
 OPENAI_API_KEY=
-  "sk-proj-..."</code></pre>
+  {{SSM:/sedric/dev/openai/key}}</code></pre>
+          <p style="font-size: 0.38em; color: var(--text-muted); margin: 10px 0 8px;">resolve_env.sh writes the real values:</p>
+          <pre style="font-size: 0.4em;"><code class="language-bash">FIREBASE_PROJECT_ID="sedric-develop-abc123"
+SNOWFLAKE_ACCOUNT="xy12345.us-east-1"
+OPENAI_API_KEY="sk-proj-..."</code></pre>
+          <div class="callout" style="margin-top: 12px; font-size: 0.42em;">
+            <em>No .env files ever committed.</em><br>
+            New engineer or Claude: run setup once, same result.
+          </div>
         </div>
-      </div>
-      <div class="callout" style="margin-top: 16px;">
-        Secrets stay in AWS SSM. Templates live in git. <em>No .env files ever committed.</em><br>
-        New engineer: run setup once. Claude: run setup once. Same result, every machine.
       </div>
     </section>
 
@@ -705,7 +667,7 @@ OPENAI_API_KEY=
          SLIDE 7: CLAUDE.MD CONTRACT
     ═══════════════════════════════════════════ -->
     <section>
-      <span class="slide-num">06 / 11</span>
+      <span class="slide-num">04 / 10</span>
       <span class="tag">The Contract</span>
       <h2>CLAUDE.md as<br>operating manual</h2>
       <div class="divider"></div>
@@ -736,72 +698,120 @@ OPENAI_API_KEY=
     </section>
 
     <!-- ═══════════════════════════════════════════
-         SLIDE 8: DEMO
+         SLIDE 6: WHAT WENT WRONG
+    ═══════════════════════════════════════════ -->
+    <section>
+      <span class="slide-num">05 / 10</span>
+      <span class="tag">What Went Wrong First</span>
+      <h2>The system exists<br>because things <em>broke</em></h2>
+      <div class="divider"></div>
+      <div class="system-flow" style="margin-top: 8px; gap: 12px;">
+        <div class="flow-box" style="border-left: 3px solid #FF4545;">
+          <strong style="color: #FF4545;">Before CLAUDE.md</strong> — Claude tried to start uvicorn directly.
+          It failed silently. Claude spent 20 minutes debugging "why the server isn't responding"
+          when it was simply starting wrong.
+          <span style="color: var(--text-muted); font-size: 0.85em;"> → Fix: document the ONLY way to start, with 🚨 headers.</span>
+        </div>
+        <div class="flow-box" style="border-left: 3px solid #FF4545;">
+          <strong style="color: #FF4545;">Before the health check loop</strong> — the frontend started before the backend was ready.
+          It threw confusing CORS errors. It wasn't CORS — the backend just wasn't up yet.
+          <span style="color: var(--text-muted); font-size: 0.85em;"> → Fix: poll /health until 200 before starting Vite.</span>
+        </div>
+        <div class="flow-box" style="border-left: 3px solid #FF4545;">
+          <strong style="color: #FF4545;">Before the SSM template system</strong> — someone committed a .env file with real credentials to git.
+          Caught it before it merged. But once is enough.
+          <span style="color: var(--text-muted); font-size: 0.85em;"> → Fix: templates in git, values in SSM, .env in .gitignore.</span>
+        </div>
+      </div>
+      <div class="callout" style="margin-top: 16px;">
+        Every piece of this system exists because something broke first.
+        That's not failure — that's how the constraints become obvious.
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 7: DEMO (live) + FALLBACK (funny)
     ═══════════════════════════════════════════ -->
     <section data-background-color="#080808">
-      <div class="demo-slide">
+      <!-- NORMAL DEMO STATE -->
+      <div class="demo-slide" id="demo-normal">
         <div class="demo-badge">DEMO</div>
-        <div class="demo-sub">
-          Start the stack → give Claude a task → watch it close the loop without us
+        <div class="demo-sub" style="max-width: 680px; color: var(--text-secondary);">
+          npm run dev:develop → Claude gets a task → watches itself ship it
+        </div>
+        <button onclick="document.getElementById('demo-normal').style.display='none'; document.getElementById('demo-broken').style.display='flex';"
+          style="margin-top: 40px; background: transparent; border: 1px solid var(--border-bright); color: var(--text-muted); font-family: var(--font-mono); font-size: 0.35em; padding: 10px 20px; border-radius: 3px; cursor: pointer; letter-spacing: 0.1em;">
+          🔥 DEMO IS ON FIRE
+        </button>
+      </div>
+      <!-- BROKEN DEMO FALLBACK STATE -->
+      <div class="demo-slide" id="demo-broken" style="display: none; flex-direction: column;">
+        <div style="font-family: var(--font-display); font-size: 2.8em; font-weight: 900; color: #FF4545; line-height: 1; letter-spacing: -0.03em;">
+          IT'S FINE.<br>EVERYTHING<br>IS FINE.
+        </div>
+        <div style="font-family: var(--font-mono); font-size: 0.38em; color: var(--text-muted); margin-top: 20px;">
+          This is fine. The demo is fine. We planned for this.
+        </div>
+        <button onclick="window.open('YOUR_LOOM_URL_HERE', '_blank')"
+          style="margin-top: 32px; background: var(--accent); border: none; color: #000; font-family: var(--font-display); font-weight: 700; font-size: 0.45em; padding: 14px 28px; border-radius: 3px; cursor: pointer; letter-spacing: 0.05em; text-transform: uppercase;">
+          ▶ OPEN LOOM
+        </button>
+        <div style="font-family: var(--font-mono); font-size: 0.3em; color: var(--text-muted); margin-top: 16px;">
+          (recorded. works every time. unlike live demos.)
         </div>
       </div>
     </section>
 
     <!-- ═══════════════════════════════════════════
-         SLIDE 9: WHAT THIS SHIPPED
+         SLIDE 8: REAL OUTPUT + WHAT IT UNLOCKS
     ═══════════════════════════════════════════ -->
     <section>
-      <span class="slide-num">08 / 11</span>
+      <span class="slide-num">07 / 10</span>
       <span class="tag">Real Output</span>
-      <h2>A complete feature,<br>start to production</h2>
+      <h2>What this actually shipped</h2>
       <div class="divider"></div>
-      <ul class="shipped-list">
-        <li>
-          <span class="num">01</span>
-          <span><strong>CloudFormation DynamoDB table</strong> — STT vendor config with retention and update policies</span>
-        </li>
-        <li>
-          <span class="num">02</span>
-          <span><strong>FastAPI CRUD backend</strong> — create, read, update, delete with composite key validation</span>
-        </li>
-        <li>
-          <span class="num">03</span>
-          <span><strong>React UI with side panel</strong> — search, filter, inline editing, key-field locking in edit mode</span>
-        </li>
-        <li>
-          <span class="num">04</span>
-          <span><strong>Migration script</strong> — deduplicated 1,736 source records → 597 unique configs written to DynamoDB</span>
-        </li>
-        <li>
-          <span class="num">05</span>
-          <span><strong>Production migration</strong> — SSO-authenticated write to stt-vendor-model-config-prod</span>
-        </li>
-      </ul>
-    </section>
-
-    <!-- ═══════════════════════════════════════════
-         SLIDE 10: WHAT THIS UNLOCKS
-    ═══════════════════════════════════════════ -->
-    <section>
-      <span class="slide-num">09 / 11</span>
-      <span class="tag">What Changes</span>
-      <h2>What a running stack<br>unlocks for Claude</h2>
-      <div class="divider"></div>
-      <div class="unlock-grid">
-        <div class="unlock-card fragment">
-          <span class="icon">⚡</span>
-          <div class="title">Tight feedback loop</div>
-          <div class="desc">Claude makes a change, sees the result, corrects itself. You stop being the relay between AI output and browser.</div>
+      <div class="two-col" style="margin-top: 8px;">
+        <div>
+          <div class="col-label">Feature delivered end-to-end</div>
+          <ul class="shipped-list" style="font-size: 0.44em;">
+            <li>
+              <span class="num">01</span>
+              <span><strong>CloudFormation DynamoDB table</strong> — retention + update policies</span>
+            </li>
+            <li>
+              <span class="num">02</span>
+              <span><strong>FastAPI CRUD backend</strong> — composite key validation</span>
+            </li>
+            <li>
+              <span class="num">03</span>
+              <span><strong>React UI</strong> — search, filter, inline edit, key-field locking</span>
+            </li>
+            <li>
+              <span class="num">04</span>
+              <span><strong>Migration script</strong> — 1,736 records → 597 unique configs</span>
+            </li>
+            <li>
+              <span class="num">05</span>
+              <span><strong>Production migration</strong> — SSO-authenticated write to prod</span>
+            </li>
+          </ul>
         </div>
-        <div class="unlock-card fragment">
-          <span class="icon">🔬</span>
-          <div class="title">Self-verification</div>
-          <div class="desc">Claude can hit the API, inspect the UI, read logs. It knows if what it wrote actually works before calling it done.</div>
-        </div>
-        <div class="unlock-card fragment">
-          <span class="icon">🚀</span>
-          <div class="title">Full-feature delivery</div>
-          <div class="desc">Not just isolated snippets. Entire features — infra to UI to production data migration — in one session.</div>
+        <div>
+          <div class="col-label">What the running stack unlocked</div>
+          <div class="unlock-grid" style="grid-template-columns: 1fr; gap: 10px; margin-top: 0;">
+            <div class="unlock-card fragment">
+              <div class="title" style="font-size: 0.5em;">⚡ Tight feedback loop</div>
+              <div class="desc">Claude makes a change, sees the result, corrects itself.</div>
+            </div>
+            <div class="unlock-card fragment">
+              <div class="title" style="font-size: 0.5em;">🔬 Self-verification</div>
+              <div class="desc">Claude hits the API, reads logs. It knows if it worked.</div>
+            </div>
+            <div class="unlock-card fragment">
+              <div class="title" style="font-size: 0.5em;">🚀 Full-feature delivery</div>
+              <div class="desc">Infra to UI to prod migration — one session, no relay.</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -810,7 +820,7 @@ OPENAI_API_KEY=
          SLIDE 11: THE TAKEAWAY
     ═══════════════════════════════════════════ -->
     <section>
-      <span class="slide-num">10 / 11</span>
+      <span class="slide-num">08 / 10</span>
       <span class="tag">One Thing to Take Home</span>
       <div style="margin-top: 48px;">
         <div class="big-quote">
