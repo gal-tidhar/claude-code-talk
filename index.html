@@ -664,6 +664,10 @@ OPENAI_API_KEY="sk-proj-..."</code></pre>
     </section>
 
     <!-- ═══════════════════════════════════════════
+         SLIDE 5: CLAUDE.MD CONTRACT  (unchanged structure, callback added)
+    ═══════════════════════════════════════════ -->
+
+    <!-- ═══════════════════════════════════════════
          SLIDE 7: CLAUDE.MD CONTRACT
     ═══════════════════════════════════════════ -->
     <section>
@@ -694,6 +698,9 @@ OPENAI_API_KEY="sk-proj-..."</code></pre>
           <div class="output">  ❌  source .env.develop &amp;&amp; python main.py</div>
           <div class="output">  ❌  any manual attempt to start the server</div>
         </div>
+      </div>
+      <div class="callout fragment" style="margin-top: 16px; font-size: 0.42em;">
+        Every one of these constraints will fire during the demo. Without a single reminder.
       </div>
     </section>
 
@@ -783,55 +790,109 @@ OPENAI_API_KEY="sk-proj-..."</code></pre>
     </section>
 
     <!-- ═══════════════════════════════════════════
-         SLIDE 8: REAL OUTPUT + WHAT IT UNLOCKS
+         SLIDE 7: WHAT JUST HAPPENED
     ═══════════════════════════════════════════ -->
     <section>
-      <span class="slide-num">07 / 10</span>
-      <span class="tag">Real Output</span>
-      <h2>What this actually shipped</h2>
+      <span class="slide-num">07 / 11</span>
+      <span class="tag">What Just Happened</span>
+      <h2>The full chain.<br>Start to shipped.</h2>
       <div class="divider"></div>
-      <div class="two-col" style="margin-top: 8px;">
-        <div>
-          <div class="col-label">Feature delivered end-to-end</div>
-          <ul class="shipped-list" style="font-size: 0.44em;">
-            <li>
-              <span class="num">01</span>
-              <span><strong>CloudFormation DynamoDB table</strong> — retention + update policies</span>
-            </li>
-            <li>
-              <span class="num">02</span>
-              <span><strong>FastAPI CRUD backend</strong> — composite key validation</span>
-            </li>
-            <li>
-              <span class="num">03</span>
-              <span><strong>React UI</strong> — search, filter, inline edit, key-field locking</span>
-            </li>
-            <li>
-              <span class="num">04</span>
-              <span><strong>Migration script</strong> — 1,736 records → 597 unique configs</span>
-            </li>
-            <li>
-              <span class="num">05</span>
-              <span><strong>Production migration</strong> — SSO-authenticated write to prod</span>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <div class="col-label">What the running stack unlocked</div>
-          <div class="unlock-grid" style="grid-template-columns: 1fr; gap: 10px; margin-top: 0;">
-            <div class="unlock-card fragment">
-              <div class="title" style="font-size: 0.5em;">⚡ Tight feedback loop</div>
-              <div class="desc">Claude makes a change, sees the result, corrects itself.</div>
-            </div>
-            <div class="unlock-card fragment">
-              <div class="title" style="font-size: 0.5em;">🔬 Self-verification</div>
-              <div class="desc">Claude hits the API, reads logs. It knows if it worked.</div>
-            </div>
-            <div class="unlock-card fragment">
-              <div class="title" style="font-size: 0.5em;">🚀 Full-feature delivery</div>
-              <div class="desc">Infra to UI to prod migration — one session, no relay.</div>
-            </div>
+      <div class="two-col" style="margin-top: 10px; grid-template-columns: 3fr 2fr; align-items: start;">
+
+        <div class="system-flow" style="gap: 6px;">
+          <div class="flow-box accent">
+            <strong>01 — Ticket read via MCP</strong><br>
+            URL dropped in chat. 27 content blocks fetched. Zero copy-paste.
           </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-box">
+            <strong>02 — Codebase survey</strong><br>
+            Explore subagent dispatched. 8 files read in parallel. Custom router pattern discovered.
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-box">
+            <strong>03 — Decisions before code</strong><br>
+            4 architecture + 3 design questions. ASCII mockups rendered. Human picked one.
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-box">
+            <strong>04 — Implementation</strong><br>
+            5 files written. Pattern-matched to existing codebase. Custom routing respected.
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-box greened">
+            <strong>05 — Live validation</strong><br>
+            curl → Python contract assertion → 60-shot distribution test. All on the live server.
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-box greened">
+            <strong>06 — Issues closed</strong><br>
+            2 GitHub issues: opened and closed in the same session.
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <div class="col-label">CLAUDE.md — fired without reminders</div>
+          <div style="
+            font-family: var(--font-mono);
+            font-size: 0.4em;
+            color: var(--text-secondary);
+            line-height: 2;
+          ">
+            <div><span style="color: var(--green);">✓</span> aws_lambda_powertools.Logger</div>
+            <div><span style="color: var(--green);">✓</span> EM-based icon sizing</div>
+            <div><span style="color: var(--green);">✓</span> No inline comments</div>
+            <div><span style="color: var(--green);">✓</span> Fail fast, no graceful degradation</div>
+            <div><span style="color: var(--green);">✓</span> Never touched uvicorn directly</div>
+          </div>
+          <div class="callout" style="margin-top: 12px;">
+            Human keystrokes that<br>wrote code: <em>0</em>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 8: THE NUMBERS
+    ═══════════════════════════════════════════ -->
+    <section>
+      <span class="slide-num">08 / 11</span>
+      <span class="tag">By the Numbers</span>
+      <h2>What one session<br>actually looks like.</h2>
+      <div class="divider"></div>
+      <div style="
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2px;
+        margin-top: 20px;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        overflow: hidden;
+      ">
+        <div style="padding: 24px 20px; background: var(--surface); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+          <div style="font-family: var(--font-display); font-size: 3.2em; font-weight: 900; color: var(--accent); line-height: 1;">0</div>
+          <div style="font-family: var(--font-mono); font-size: 0.36em; color: var(--text-muted); margin-top: 8px; line-height: 1.5;">human keystrokes<br>that wrote code</div>
+        </div>
+        <div style="padding: 24px 20px; background: var(--surface); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+          <div style="font-family: var(--font-display); font-size: 3.2em; font-weight: 900; color: var(--text); line-height: 1;">35</div>
+          <div style="font-family: var(--font-mono); font-size: 0.36em; color: var(--text-muted); margin-top: 8px; line-height: 1.5;">items in<br>the pool</div>
+        </div>
+        <div style="padding: 24px 20px; background: var(--surface); border-bottom: 1px solid var(--border);">
+          <div style="font-family: var(--font-display); font-size: 3.2em; font-weight: 900; color: var(--text); line-height: 1;">26<span style="font-size: 0.5em; color: var(--text-muted);">/60</span></div>
+          <div style="font-family: var(--font-mono); font-size: 0.36em; color: var(--text-muted); margin-top: 8px; line-height: 1.5;">unique results in<br>consecutive calls</div>
+        </div>
+        <div style="padding: 24px 20px; background: var(--surface); border-right: 1px solid var(--border);">
+          <div style="font-family: var(--font-display); font-size: 3.2em; font-weight: 900; color: var(--text); line-height: 1;">4<span style="font-size: 0.5em; color: var(--text-muted);">+</span>3</div>
+          <div style="font-family: var(--font-mono); font-size: 0.36em; color: var(--text-muted); margin-top: 8px; line-height: 1.5;">decisions made<br>before implementation</div>
+        </div>
+        <div style="padding: 24px 20px; background: var(--surface); border-right: 1px solid var(--border);">
+          <div style="font-family: var(--font-display); font-size: 3.2em; font-weight: 900; color: var(--text); line-height: 1;">8</div>
+          <div style="font-family: var(--font-mono); font-size: 0.36em; color: var(--text-muted); margin-top: 8px; line-height: 1.5;">files read<br>in parallel</div>
+        </div>
+        <div style="padding: 24px 20px; background: var(--surface);">
+          <div style="font-family: var(--font-display); font-size: 3.2em; font-weight: 900; color: var(--text); line-height: 1;">5</div>
+          <div style="font-family: var(--font-mono); font-size: 0.36em; color: var(--text-muted); margin-top: 8px; line-height: 1.5;">files created<br>or modified</div>
         </div>
       </div>
     </section>
@@ -840,7 +901,7 @@ OPENAI_API_KEY="sk-proj-..."</code></pre>
          SLIDE 11: THE TAKEAWAY
     ═══════════════════════════════════════════ -->
     <section>
-      <span class="slide-num">08 / 10</span>
+      <span class="slide-num">09 / 11</span>
       <span class="tag">One Thing to Take Home</span>
       <div style="margin-top: 48px;">
         <div class="big-quote">
