@@ -675,55 +675,38 @@ OPENAI_API_KEY="sk-proj-..."</code></pre>
       <span class="tag">The Contract</span>
       <h2>CLAUDE.md —<br>the operating manual</h2>
       <div class="divider"></div>
-      <div class="two-col" style="margin-top: 10px; gap: 24px; align-items: start;">
-        <div class="terminal" style="margin-top: 0;">
-          <div class="terminal-bar">
-            <div class="terminal-dot red"></div>
-            <div class="terminal-dot yellow"></div>
-            <div class="terminal-dot green"></div>
-            <span class="terminal-title">CLAUDE.md</span>
-          </div>
-          <div class="terminal-body">
-            <div class="warn">## 🚨 SERVER STARTUP</div>
-            <div class="cmd">  npm run dev:develop   <span class="comment"># the ONLY way</span></div>
-            <div class="output">  ❌  uvicorn main:app --reload</div>
-            <div class="output"> </div>
-            <div class="warn">## Code Style</div>
-            <div class="output">  Logger: aws_lambda_powertools only</div>
-            <div class="output">  Icons: EM-based sizing, never Tailwind w-4</div>
-            <div class="output">  Comments: none. Code speaks.</div>
-            <div class="output"> </div>
-            <div class="warn">## Error Philosophy</div>
-            <div class="output">  Fail fast. No graceful degradation.</div>
-            <div class="output">  If it's needed — it must work.</div>
-            <div class="output"> </div>
-            <div class="warn">## Design Principles</div>
-            <div class="output">  Question every ID system.</div>
-            <div class="output">  Simple &gt; complex. Always.</div>
-          </div>
+      <div class="terminal" style="margin-top: 10px;">
+        <div class="terminal-bar">
+          <div class="terminal-dot red"></div>
+          <div class="terminal-dot yellow"></div>
+          <div class="terminal-dot green"></div>
+          <span class="terminal-title">CLAUDE.md</span>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 10px;">
-          <div class="col-label">What it gives Claude</div>
-          <div class="flow-box accent" style="font-size: 0.42em; padding: 12px 16px;">
-            <strong>Project context</strong><br>
-            Service names, URL patterns, stack decisions — so Claude never invents them.
-          </div>
-          <div class="flow-box" style="font-size: 0.42em; padding: 12px 16px;">
-            <strong>Non-negotiable mandates</strong><br>
-            Rules that can't drift. Every session. No exceptions.
-          </div>
-          <div class="flow-box" style="font-size: 0.42em; padding: 12px 16px;">
-            <strong>Interaction style</strong><br>
-            Be critical. Challenge bad choices. Don't agree automatically.
-          </div>
-          <div class="flow-box greened" style="font-size: 0.42em; padding: 12px 16px;">
-            <strong>AWS + deployment rules</strong><br>
-            Profiles, approval gates, CI/CD boundaries — Claude knows what it can't touch.
-          </div>
-          <div class="callout fragment" style="font-size: 0.42em; margin-top: 4px;">
-            Loaded once at session start. Fires for the entire session. No reminders.
-          </div>
+        <div class="terminal-body">
+          <div class="warn">## 🚨 SERVER STARTUP</div>
+          <div class="cmd">  npm run dev:develop   <span class="comment"># the ONLY way</span></div>
+          <div class="output">  ❌  uvicorn main:app --reload</div>
+          <div class="output"> </div>
+          <div class="warn">## Code Style</div>
+          <div class="output">  Logger: aws_lambda_powertools only</div>
+          <div class="output">  Icons: EM-based sizing, never Tailwind w-4</div>
+          <div class="output">  Comments: none. Code speaks.</div>
+          <div class="output"> </div>
+          <div class="warn">## Error Philosophy</div>
+          <div class="output">  Fail fast. No graceful degradation.</div>
+          <div class="output">  If it's needed — it must work.</div>
+          <div class="output"> </div>
+          <div class="warn">## Design Principles</div>
+          <div class="output">  Question every ID system.</div>
+          <div class="output">  Simple &gt; complex. Always.</div>
+          <div class="output"> </div>
+          <div class="warn">## AWS + Deployment</div>
+          <div class="output">  sedric-prod-poweruser: always ask first.</div>
+          <div class="output">  CI/CD only. Never deploy manually.</div>
         </div>
+      </div>
+      <div class="callout fragment" style="margin-top: 16px; font-size: 0.42em;">
+        Loaded once at session start. Fires for the entire session. No reminders.
       </div>
     </section>
 
@@ -735,38 +718,52 @@ OPENAI_API_KEY="sk-proj-..."</code></pre>
       <span class="tag">Skills</span>
       <h2>Reusable workflows,<br>not one-off prompts</h2>
       <div class="divider"></div>
-      <div class="two-col" style="margin-top: 10px; gap: 24px; align-items: start;">
-        <ul class="shipped-list" style="font-size: 0.42em;">
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-top: 10px; align-items: start;">
+        <ul class="shipped-list" style="font-size: 0.4em;">
           <li>
             <span class="num" style="font-size: 0.65em; width: 40px; line-height: 1.3;">⚡</span>
-            <span><strong>using-superpowers</strong> — loads at session start via hook. Enforces skill-first discipline. The meta-skill that governs all others.</span>
+            <span><strong>using-superpowers</strong> — loads at session start. Enforces skill-first discipline every session.</span>
+          </li>
+          <li>
+            <span class="num" style="font-size: 0.65em; width: 40px; line-height: 1.3;">🔥</span>
+            <span><strong>grill-me</strong> — relentlessly interviews you about a plan until there's genuine shared understanding. No hand-wavy specs.</span>
+          </li>
+          <li>
+            <span class="num" style="font-size: 0.65em; width: 40px; line-height: 1.3;">📝</span>
+            <span><strong>make-plan</strong> — turns a spec or ticket into a detailed, phased PRD with doc discovery. The blueprint before the build.</span>
+          </li>
+        </ul>
+        <ul class="shipped-list" style="font-size: 0.4em;">
+          <li>
+            <span class="num" style="font-size: 0.65em; width: 40px; line-height: 1.3;">📌</span>
+            <span><strong>monday-ticket</strong> — breaks a PRD into Monday.com tickets, one per task. Issues created from the plan, not from memory.</span>
           </li>
           <li>
             <span class="num" style="font-size: 0.65em; width: 40px; line-height: 1.3;">📋</span>
-            <span><strong>feature-dev</strong> — PRD before code. Issues opened before implementation. Explore subagent surveys first. Full delivery in order.</span>
+            <span><strong>feature-dev</strong> — end-to-end delivery: explore → PRD → issues → implement → validate. Ordered, not improvised.</span>
           </li>
           <li>
             <span class="num" style="font-size: 0.65em; width: 40px; line-height: 1.3;">🧠</span>
-            <span><strong>brainstorming</strong> — before any architecture or creative decision. Forces options before commitment. No one-shot guesses.</span>
+            <span><strong>brainstorming</strong> — before any architecture decision. Forces multiple options before any commitment.</span>
           </li>
         </ul>
-        <ul class="shipped-list" style="font-size: 0.42em;">
+        <ul class="shipped-list" style="font-size: 0.4em;">
           <li>
             <span class="num" style="font-size: 0.65em; width: 40px; line-height: 1.3;">🐛</span>
-            <span><strong>systematic-debugging</strong> — structured bug hunting. Hypotheses before fixes. No random changes hoping something sticks.</span>
+            <span><strong>systematic-debugging</strong> — structured bug hunting. Hypotheses before fixes. No random changes.</span>
           </li>
           <li>
             <span class="num" style="font-size: 0.65em; width: 40px; line-height: 1.3;">🚀</span>
-            <span><strong>commit-push-pr</strong> — one command: commit with message, push, open PR with Monday ticket link and description.</span>
+            <span><strong>commit-push-pr</strong> — commit, push, open PR with Monday link. One command ships.</span>
           </li>
           <li>
             <span class="num" style="font-size: 0.65em; width: 40px; line-height: 1.3;">👁</span>
-            <span><strong>monitor-ci</strong> — watches CI after push. Notifies on pass or fail. You don't babysit GitHub Actions anymore.</span>
+            <span><strong>monitor-ci</strong> — watches CI after push. Notifies on pass or fail. No babysitting.</span>
           </li>
         </ul>
       </div>
       <div class="callout" style="margin-top: 14px; font-size: 0.42em;">
-        Skills are markdown files. You write them once — they run every time you invoke them. <em>Steal and adapt.</em>
+        Skills are markdown files. Write once — invoke every time. <em>Steal and adapt.</em>
       </div>
     </section>
 
@@ -1138,20 +1135,15 @@ OPENAI_API_KEY="sk-proj-..."</code></pre>
     plugins: [RevealNotes, RevealHighlight],
   });
 
-  // Demo slide state toggle
-  // F = demo is on fire (show fallback)
-  // R = reset back to normal demo state
+  // F toggles between normal and broken demo states
   document.addEventListener('keydown', function(e) {
     const normal = document.getElementById('demo-normal');
     const broken = document.getElementById('demo-broken');
     if (!normal || !broken) return;
     if (e.key === 'f' || e.key === 'F') {
-      normal.style.display = 'none';
-      broken.style.display = 'flex';
-    }
-    if (e.key === 'r' || e.key === 'R') {
-      broken.style.display = 'none';
-      normal.style.display = 'flex';
+      const isBroken = broken.style.display !== 'none';
+      normal.style.display = isBroken ? 'flex' : 'none';
+      broken.style.display = isBroken ? 'none' : 'flex';
     }
   });
 </script>
