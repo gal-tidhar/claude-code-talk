@@ -959,64 +959,57 @@ OPENAI_API_KEY="sk-proj-..."</code></pre>
     <section>
       <span class="slide-num">09 / 11</span>
       <span class="tag">The Process</span>
-      <h2>Why it produces<br><em>working</em> code.</h2>
+      <h2>Why it produces <em>working</em> code.</h2>
       <div class="divider"></div>
-      <div class="two-col" style="margin-top: 10px; gap: 24px; align-items: start;">
+      <div style="margin-top: 12px; font-family: var(--font-mono); font-size: 0.42em;">
+        <div style="display: grid; grid-template-columns: 2px 1fr 24px 1fr; gap: 0; align-items: stretch;">
 
-        <div>
-          <div class="col-label">What was orchestrated</div>
-          <ul class="shipped-list" style="font-size: 0.42em;">
-            <li>
-              <span class="num" style="font-size: 0.7em; width: 36px;">MCP</span>
-              <span><strong>Monday.com MCP</strong> — spec fetched direct from the ticket. 27 content blocks. No copy-paste, no misquote, no invented requirements.</span>
-            </li>
-            <li>
-              <span class="num" style="font-size: 0.7em; width: 36px;">SKL</span>
-              <span><strong>feature-dev skill</strong> — PRD drafted in-session, GitHub issues opened before a line was written. Process enforced, not improvised.</span>
-            </li>
-            <li>
-              <span class="num" style="font-size: 0.7em; width: 36px;">SUB</span>
-              <span><strong>Explore subagent</strong> — codebase surveyed in parallel. Custom router pattern + custom FE routing both discovered before touching anything.</span>
-            </li>
-            <li>
-              <span class="num" style="font-size: 0.7em; width: 36px;">ASK</span>
-              <span><strong>AskUserQuestion</strong> — architecture surfaced before implementation. 4 structural + 3 design decisions. Nothing guessed, nothing assumed.</span>
-            </li>
-            <li>
-              <span class="num" style="font-size: 0.7em; width: 36px;">CLI</span>
-              <span><strong>gh CLI + curl + Python3</strong> — issues tracked, endpoint validated live, contract asserted in Python, distribution tested over 60 calls.</span>
-            </li>
-          </ul>
+          <div style="background: var(--accent); border-radius: 2px; grid-row: span 5;"></div>
+
+          <div style="padding: 10px 16px; border-bottom: 1px solid var(--border); color: var(--text-secondary);">
+            <strong style="color: var(--text);">Monday.com MCP</strong> — spec fetched direct from the ticket. 27 content blocks. No copy-paste.
+          </div>
+          <div style="display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--border); color: var(--text-muted);">→</div>
+          <div style="padding: 10px 16px; border-bottom: 1px solid var(--border); border-left: 2px solid var(--green); background: var(--green-dim);">
+            <strong style="color: var(--green);">No spec drift</strong> — requirements came from the ticket, not Claude's memory.
+          </div>
+
+          <div style="padding: 10px 16px; border-bottom: 1px solid var(--border); color: var(--text-secondary);">
+            <strong style="color: var(--text);">feature-dev skill</strong> — PRD drafted, GitHub issues opened before a line was written.
+          </div>
+          <div style="display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--border); color: var(--text-muted);">→</div>
+          <div style="padding: 10px 16px; border-bottom: 1px solid var(--border); border-left: 2px solid var(--green); background: var(--green-dim);">
+            <strong style="color: var(--green);">No scope creep</strong> — PRD + open issues = a contract. Implementation matched it.
+          </div>
+
+          <div style="padding: 10px 16px; border-bottom: 1px solid var(--border); color: var(--text-secondary);">
+            <strong style="color: var(--text);">Explore subagent</strong> — codebase surveyed in parallel. Custom router + FE routing discovered.
+          </div>
+          <div style="display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--border); color: var(--text-muted);">→</div>
+          <div style="padding: 10px 16px; border-bottom: 1px solid var(--border); border-left: 2px solid var(--green); background: var(--green-dim);">
+            <strong style="color: var(--green);">No pattern violations</strong> — found before touching anything.
+          </div>
+
+          <div style="padding: 10px 16px; border-bottom: 1px solid var(--border); color: var(--text-secondary);">
+            <strong style="color: var(--text);">AskUserQuestion</strong> — 4 architecture + 3 design decisions surfaced before implementation.
+          </div>
+          <div style="display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--border); color: var(--text-muted);">→</div>
+          <div style="padding: 10px 16px; border-bottom: 1px solid var(--border); border-left: 2px solid var(--green); background: var(--green-dim);">
+            <strong style="color: var(--green);">No architecture guesses</strong> — human decided, Claude executed.
+          </div>
+
+          <div style="padding: 10px 16px; color: var(--text-secondary);">
+            <strong style="color: var(--text);">gh CLI + curl + Python3</strong> — live endpoint, contract assertion, 60-shot distribution test.
+          </div>
+          <div style="display: flex; align-items: center; justify-content: center; color: var(--text-muted);">→</div>
+          <div style="padding: 10px 16px; border-left: 2px solid var(--green); background: var(--green-dim);">
+            <strong style="color: var(--green);">No "I think it works"</strong> — live server, real assertions.
+          </div>
+
         </div>
-
-        <div style="display: flex; flex-direction: column; gap: 9px;">
-          <div class="col-label">What each one prevented</div>
-          <div class="flow-box" style="border-left: 3px solid var(--green); font-size: 0.42em;">
-            <strong style="color: var(--green);">No spec drift</strong><br>
-            Requirements came from the ticket. Not from Claude's memory.
-          </div>
-          <div class="flow-box" style="border-left: 3px solid var(--green); font-size: 0.42em;">
-            <strong style="color: var(--green);">No scope creep</strong><br>
-            PRD + open issues = a contract. Implementation matched it exactly.
-          </div>
-          <div class="flow-box" style="border-left: 3px solid var(--green); font-size: 0.42em;">
-            <strong style="color: var(--green);">No pattern violations</strong><br>
-            Custom router and custom routing found before any code was written.
-          </div>
-          <div class="flow-box" style="border-left: 3px solid var(--green); font-size: 0.42em;">
-            <strong style="color: var(--green);">No architecture guesses</strong><br>
-            Human decided. Claude executed. Exactly what was decided.
-          </div>
-          <div class="flow-box" style="border-left: 3px solid var(--green); font-size: 0.42em;">
-            <strong style="color: var(--green);">No "I think it works"</strong><br>
-            Live server. Real assertions. It either passes or it doesn't.
-          </div>
-          <div class="callout" style="margin-top: 4px; font-size: 0.42em;">
-            Complex full-stack system. Custom patterns throughout.<br>
-            <em>Working code. First try. Issues closed.</em>
-          </div>
-        </div>
-
+      </div>
+      <div class="callout" style="margin-top: 12px; font-size: 0.42em;">
+        Complex full-stack system. Custom patterns throughout. <em>Working code. First try. Issues closed. PR opened.</em>
       </div>
     </section>
 
