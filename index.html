@@ -934,28 +934,12 @@ OPENAI_API_KEY="sk-proj-..."</code></pre>
             <strong>06 — Issues closed</strong><br>
             2 GitHub issues: opened before implementation, closed after validation.
           </div>
+          <div class="flow-box greened" style="padding: 8px 12px;">
+            <strong>07 — PR opened via gh CLI</strong><br>
+            gh pr create — title, body, Monday link. Ready for review.
+          </div>
         </div>
 
-      </div>
-
-      <div class="terminal" style="margin-top: 10px;">
-        <div class="terminal-bar">
-          <div class="terminal-dot red"></div>
-          <div class="terminal-dot yellow"></div>
-          <div class="terminal-dot green"></div>
-          <span class="terminal-title">07 — PR opened via gh CLI</span>
-        </div>
-        <div class="terminal-body" style="font-size: 0.82em;">
-          <div><span class="prompt">$ </span><span class="cmd">gh pr create \</span></div>
-          <div>&nbsp;&nbsp;<span class="cmd">--title</span> <span style="color: var(--accent);">"feat: developer excuse generator"</span> <span class="cmd">\</span></div>
-          <div>&nbsp;&nbsp;<span class="cmd">--body</span> <span style="color: var(--accent);">"$(cat &lt;&lt;'EOF'</span></div>
-          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="output">## Summary</span></div>
-          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="output">- New FastAPI GET /api/excuse endpoint — 35-item pool, no-repeat guarantee</span></div>
-          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="output">- React UI page with copy-to-clipboard and session counter</span></div>
-          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="output">- Closes #78, Closes #79 · Monday: [ticket link]</span></div>
-          <div>&nbsp;&nbsp;<span style="color: var(--accent);">EOF</span><span class="cmd">)"</span></div>
-          <div class="success" style="margin-top: 4px;">✓ Created pull request #80</div>
-        </div>
       </div>
     </section>
 
