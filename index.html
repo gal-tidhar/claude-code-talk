@@ -705,7 +705,7 @@ OPENAI_API_KEY="sk-proj-..."</code></pre>
           <div class="output">  CI/CD only. Never deploy manually.</div>
         </div>
       </div>
-      <div class="callout fragment" style="margin-top: 16px; font-size: 0.42em;">
+      <div class="callout" style="margin-top: 16px; font-size: 0.42em;">
         Loaded once at session start. Fires for the entire session. No reminders.
       </div>
     </section>
@@ -885,12 +885,16 @@ OPENAI_API_KEY="sk-proj-..."</code></pre>
         <div style="font-family: var(--font-mono); font-size: 0.38em; color: var(--text-muted); margin-top: 20px;">
           This is fine. The demo is fine. We planned for this.
         </div>
-        <button onclick="window.open('YOUR_LOOM_URL_HERE', '_blank')"
-          style="margin-top: 32px; background: var(--accent); border: none; color: #000; font-family: var(--font-display); font-weight: 700; font-size: 0.45em; padding: 14px 28px; border-radius: 3px; cursor: pointer; letter-spacing: 0.05em; text-transform: uppercase;">
-          ▶ OPEN LOOM
-        </button>
-        <div style="font-family: var(--font-mono); font-size: 0.3em; color: var(--text-muted); margin-top: 16px;">
-          (recorded. works every time. unlike live demos.)
+        <div style="margin-top: 24px; width: 100%; max-width: 640px; aspect-ratio: 16/9; border-radius: 6px; overflow: hidden; border: 1px solid #2a2a2a;">
+          <iframe
+            src="https://www.loom.com/embed/9507eb0e5c0c4102b0528bf51d1f55ee"
+            frameborder="0"
+            allowfullscreen
+            style="width: 100%; height: 100%; display: block;"
+          ></iframe>
+        </div>
+        <div style="font-family: var(--font-mono); font-size: 0.28em; color: var(--text-muted); margin-top: 12px;">
+          recorded. works every time. unlike live demos.
         </div>
       </div>
     </section>
