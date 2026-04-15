@@ -854,46 +854,69 @@ OPENAI_API_KEY="sk-proj-..."</code></pre>
     </section>
 
     <!-- ═══════════════════════════════════════════
-         SLIDE 8: THE NUMBERS
+         SLIDE 8: WHY IT DOESN'T BREAK
     ═══════════════════════════════════════════ -->
     <section>
       <span class="slide-num">08 / 11</span>
-      <span class="tag">By the Numbers</span>
-      <h2>What one session<br>actually looks like.</h2>
+      <span class="tag">The Process</span>
+      <h2>Why it produces<br><em>working</em> code.</h2>
       <div class="divider"></div>
-      <div style="
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 2px;
-        margin-top: 20px;
-        border: 1px solid var(--border);
-        border-radius: 4px;
-        overflow: hidden;
-      ">
-        <div style="padding: 24px 20px; background: var(--surface); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);">
-          <div style="font-family: var(--font-display); font-size: 3.2em; font-weight: 900; color: var(--accent); line-height: 1;">0</div>
-          <div style="font-family: var(--font-mono); font-size: 0.36em; color: var(--text-muted); margin-top: 8px; line-height: 1.5;">human keystrokes<br>that wrote code</div>
+      <div class="two-col" style="margin-top: 10px; gap: 24px; align-items: start;">
+
+        <div>
+          <div class="col-label">What was orchestrated</div>
+          <ul class="shipped-list" style="font-size: 0.42em;">
+            <li>
+              <span class="num" style="font-size: 0.7em; width: 36px;">MCP</span>
+              <span><strong>Monday.com MCP</strong> — spec fetched direct from the ticket. 27 content blocks. No copy-paste, no misquote, no invented requirements.</span>
+            </li>
+            <li>
+              <span class="num" style="font-size: 0.7em; width: 36px;">SKL</span>
+              <span><strong>feature-dev skill</strong> — PRD drafted in-session, GitHub issues opened before a line was written. Process enforced, not improvised.</span>
+            </li>
+            <li>
+              <span class="num" style="font-size: 0.7em; width: 36px;">SUB</span>
+              <span><strong>Explore subagent</strong> — codebase surveyed in parallel. Custom router pattern + custom FE routing both discovered before touching anything.</span>
+            </li>
+            <li>
+              <span class="num" style="font-size: 0.7em; width: 36px;">ASK</span>
+              <span><strong>AskUserQuestion</strong> — architecture surfaced before implementation. 4 structural + 3 design decisions. Nothing guessed, nothing assumed.</span>
+            </li>
+            <li>
+              <span class="num" style="font-size: 0.7em; width: 36px;">CLI</span>
+              <span><strong>gh CLI + curl + Python3</strong> — issues tracked, endpoint validated live, contract asserted in Python, distribution tested over 60 calls.</span>
+            </li>
+          </ul>
         </div>
-        <div style="padding: 24px 20px; background: var(--surface); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);">
-          <div style="font-family: var(--font-display); font-size: 3.2em; font-weight: 900; color: var(--text); line-height: 1;">35</div>
-          <div style="font-family: var(--font-mono); font-size: 0.36em; color: var(--text-muted); margin-top: 8px; line-height: 1.5;">items in<br>the pool</div>
+
+        <div style="display: flex; flex-direction: column; gap: 9px;">
+          <div class="col-label">What each one prevented</div>
+          <div class="flow-box" style="border-left: 3px solid var(--green); font-size: 0.42em;">
+            <strong style="color: var(--green);">No spec drift</strong><br>
+            Requirements came from the ticket. Not from Claude's memory.
+          </div>
+          <div class="flow-box" style="border-left: 3px solid var(--green); font-size: 0.42em;">
+            <strong style="color: var(--green);">No scope creep</strong><br>
+            PRD + open issues = a contract. Implementation matched it exactly.
+          </div>
+          <div class="flow-box" style="border-left: 3px solid var(--green); font-size: 0.42em;">
+            <strong style="color: var(--green);">No pattern violations</strong><br>
+            Custom router and custom routing found before any code was written.
+          </div>
+          <div class="flow-box" style="border-left: 3px solid var(--green); font-size: 0.42em;">
+            <strong style="color: var(--green);">No architecture guesses</strong><br>
+            Human decided. Claude executed. Exactly what was decided.
+          </div>
+          <div class="flow-box" style="border-left: 3px solid var(--green); font-size: 0.42em;">
+            <strong style="color: var(--green);">No "I think it works"</strong><br>
+            Live server. Real assertions. It either passes or it doesn't.
+          </div>
+          <div class="callout" style="margin-top: 4px; font-size: 0.42em;">
+            Complex full-stack system. Custom patterns throughout.<br>
+            <em>Working code. First try. Issues closed.</em>
+          </div>
         </div>
-        <div style="padding: 24px 20px; background: var(--surface); border-bottom: 1px solid var(--border);">
-          <div style="font-family: var(--font-display); font-size: 3.2em; font-weight: 900; color: var(--text); line-height: 1;">26<span style="font-size: 0.5em; color: var(--text-muted);">/60</span></div>
-          <div style="font-family: var(--font-mono); font-size: 0.36em; color: var(--text-muted); margin-top: 8px; line-height: 1.5;">unique results in<br>consecutive calls</div>
-        </div>
-        <div style="padding: 24px 20px; background: var(--surface); border-right: 1px solid var(--border);">
-          <div style="font-family: var(--font-display); font-size: 3.2em; font-weight: 900; color: var(--text); line-height: 1;">4<span style="font-size: 0.5em; color: var(--text-muted);">+</span>3</div>
-          <div style="font-family: var(--font-mono); font-size: 0.36em; color: var(--text-muted); margin-top: 8px; line-height: 1.5;">decisions made<br>before implementation</div>
-        </div>
-        <div style="padding: 24px 20px; background: var(--surface); border-right: 1px solid var(--border);">
-          <div style="font-family: var(--font-display); font-size: 3.2em; font-weight: 900; color: var(--text); line-height: 1;">8</div>
-          <div style="font-family: var(--font-mono); font-size: 0.36em; color: var(--text-muted); margin-top: 8px; line-height: 1.5;">files read<br>in parallel</div>
-        </div>
-        <div style="padding: 24px 20px; background: var(--surface);">
-          <div style="font-family: var(--font-display); font-size: 3.2em; font-weight: 900; color: var(--text); line-height: 1;">5</div>
-          <div style="font-family: var(--font-mono); font-size: 0.36em; color: var(--text-muted); margin-top: 8px; line-height: 1.5;">files created<br>or modified</div>
-        </div>
+
       </div>
     </section>
 
