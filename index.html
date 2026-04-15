@@ -546,7 +546,7 @@
          SLIDE 2: THE PROBLEM + THE GAP
     ═══════════════════════════════════════════ -->
     <section>
-      <span class="slide-num">01 / 10</span>
+      <span class="slide-num">01 / 11</span>
       <span class="tag">The Problem</span>
       <h2>Claude can write.<br>Can it <em>ship</em>?</h2>
       <div class="divider"></div>
@@ -583,7 +583,7 @@
          SLIDE 4: THE SOLUTION — ONE COMMAND
     ═══════════════════════════════════════════ -->
     <section>
-      <span class="slide-num">02 / 10</span>
+      <span class="slide-num">02 / 11</span>
       <span class="tag">The Solution</span>
       <h2>One command.<br>Full stack. Every time.</h2>
       <div class="divider"></div>
@@ -613,7 +613,7 @@
          SLIDE 4: UNDER THE HOOD + ENV SYSTEM
     ═══════════════════════════════════════════ -->
     <section>
-      <span class="slide-num">03 / 10</span>
+      <span class="slide-num">03 / 11</span>
       <span class="tag">How It Works</span>
       <h2>Orchestration +<br>secrets without ceremony</h2>
       <div class="divider"></div>
@@ -668,39 +668,148 @@ OPENAI_API_KEY="sk-proj-..."</code></pre>
     ═══════════════════════════════════════════ -->
 
     <!-- ═══════════════════════════════════════════
-         SLIDE 7: CLAUDE.MD CONTRACT
+         SLIDE 4: CLAUDE.MD
     ═══════════════════════════════════════════ -->
     <section>
-      <span class="slide-num">04 / 10</span>
+      <span class="slide-num">04 / 11</span>
       <span class="tag">The Contract</span>
-      <h2>CLAUDE.md as<br>operating manual</h2>
+      <h2>CLAUDE.md —<br>the operating manual</h2>
       <div class="divider"></div>
-      <div class="terminal">
-        <div class="terminal-bar">
-          <div class="terminal-dot red"></div>
-          <div class="terminal-dot yellow"></div>
-          <div class="terminal-dot green"></div>
-          <span class="terminal-title">CLAUDE.md</span>
+      <div class="two-col" style="margin-top: 10px; gap: 24px; align-items: start;">
+        <div class="terminal" style="margin-top: 0;">
+          <div class="terminal-bar">
+            <div class="terminal-dot red"></div>
+            <div class="terminal-dot yellow"></div>
+            <div class="terminal-dot green"></div>
+            <span class="terminal-title">CLAUDE.md</span>
+          </div>
+          <div class="terminal-body">
+            <div class="warn">## 🚨 SERVER STARTUP</div>
+            <div class="cmd">  npm run dev:develop   <span class="comment"># the ONLY way</span></div>
+            <div class="output">  ❌  uvicorn main:app --reload</div>
+            <div class="output"> </div>
+            <div class="warn">## Code Style</div>
+            <div class="output">  Logger: aws_lambda_powertools only</div>
+            <div class="output">  Icons: EM-based sizing, never Tailwind w-4</div>
+            <div class="output">  Comments: none. Code speaks.</div>
+            <div class="output"> </div>
+            <div class="warn">## Error Philosophy</div>
+            <div class="output">  Fail fast. No graceful degradation.</div>
+            <div class="output">  If it's needed — it must work.</div>
+            <div class="output"> </div>
+            <div class="warn">## Design Principles</div>
+            <div class="output">  Question every ID system.</div>
+            <div class="output">  Simple &gt; complex. Always.</div>
+          </div>
         </div>
-        <div class="terminal-body">
-          <div class="warn">## 🚨 CRITICAL: SERVER STARTUP — NEVER DO IT ANY OTHER WAY</div>
-          <div class="output"> </div>
-          <div class="output">MANDATE: Always start the development server using</div>
-          <div class="output">npm scripts. NEVER start uvicorn directly.</div>
-          <div class="output"> </div>
-          <div class="success">## The ONLY Way to Start the Server</div>
-          <div class="output"> </div>
-          <div class="cmd">  npm run setup:develop   <span class="comment"># first time only</span></div>
-          <div class="cmd">  npm run dev:develop     <span class="comment"># every time after</span></div>
-          <div class="output"> </div>
-          <div class="warn">## NEVER Do These</div>
-          <div class="output">  ❌  uvicorn main:app --reload</div>
-          <div class="output">  ❌  source .env.develop &amp;&amp; python main.py</div>
-          <div class="output">  ❌  any manual attempt to start the server</div>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <div class="col-label">What it gives Claude</div>
+          <div class="flow-box accent" style="font-size: 0.42em; padding: 12px 16px;">
+            <strong>Project context</strong><br>
+            Service names, URL patterns, stack decisions — so Claude never invents them.
+          </div>
+          <div class="flow-box" style="font-size: 0.42em; padding: 12px 16px;">
+            <strong>Non-negotiable mandates</strong><br>
+            Rules that can't drift. Every session. No exceptions.
+          </div>
+          <div class="flow-box" style="font-size: 0.42em; padding: 12px 16px;">
+            <strong>Interaction style</strong><br>
+            Be critical. Challenge bad choices. Don't agree automatically.
+          </div>
+          <div class="flow-box greened" style="font-size: 0.42em; padding: 12px 16px;">
+            <strong>AWS + deployment rules</strong><br>
+            Profiles, approval gates, CI/CD boundaries — Claude knows what it can't touch.
+          </div>
+          <div class="callout fragment" style="font-size: 0.42em; margin-top: 4px;">
+            Loaded once at session start. Fires for the entire session. No reminders.
+          </div>
         </div>
       </div>
-      <div class="callout fragment" style="margin-top: 16px; font-size: 0.42em;">
-        Every one of these constraints will fire during the demo. Without a single reminder.
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 5: SKILLS
+    ═══════════════════════════════════════════ -->
+    <section>
+      <span class="slide-num">05 / 11</span>
+      <span class="tag">Skills</span>
+      <h2>Reusable workflows,<br>not one-off prompts</h2>
+      <div class="divider"></div>
+      <div class="two-col" style="margin-top: 10px; gap: 24px; align-items: start;">
+        <ul class="shipped-list" style="font-size: 0.42em;">
+          <li>
+            <span class="num" style="font-size: 0.65em; width: 40px; line-height: 1.3;">⚡</span>
+            <span><strong>using-superpowers</strong> — loads at session start via hook. Enforces skill-first discipline. The meta-skill that governs all others.</span>
+          </li>
+          <li>
+            <span class="num" style="font-size: 0.65em; width: 40px; line-height: 1.3;">📋</span>
+            <span><strong>feature-dev</strong> — PRD before code. Issues opened before implementation. Explore subagent surveys first. Full delivery in order.</span>
+          </li>
+          <li>
+            <span class="num" style="font-size: 0.65em; width: 40px; line-height: 1.3;">🧠</span>
+            <span><strong>brainstorming</strong> — before any architecture or creative decision. Forces options before commitment. No one-shot guesses.</span>
+          </li>
+        </ul>
+        <ul class="shipped-list" style="font-size: 0.42em;">
+          <li>
+            <span class="num" style="font-size: 0.65em; width: 40px; line-height: 1.3;">🐛</span>
+            <span><strong>systematic-debugging</strong> — structured bug hunting. Hypotheses before fixes. No random changes hoping something sticks.</span>
+          </li>
+          <li>
+            <span class="num" style="font-size: 0.65em; width: 40px; line-height: 1.3;">🚀</span>
+            <span><strong>commit-push-pr</strong> — one command: commit with message, push, open PR with Monday ticket link and description.</span>
+          </li>
+          <li>
+            <span class="num" style="font-size: 0.65em; width: 40px; line-height: 1.3;">👁</span>
+            <span><strong>monitor-ci</strong> — watches CI after push. Notifies on pass or fail. You don't babysit GitHub Actions anymore.</span>
+          </li>
+        </ul>
+      </div>
+      <div class="callout" style="margin-top: 14px; font-size: 0.42em;">
+        Skills are markdown files. You write them once — they run every time you invoke them. <em>Steal and adapt.</em>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 6: MCPS
+    ═══════════════════════════════════════════ -->
+    <section>
+      <span class="slide-num">06 / 11</span>
+      <span class="tag">MCPs</span>
+      <h2>Claude reaches out.<br>You don't relay.</h2>
+      <div class="divider"></div>
+      <div class="two-col" style="margin-top: 10px; gap: 24px; align-items: start;">
+        <ul class="shipped-list" style="font-size: 0.42em;">
+          <li>
+            <span class="num" style="font-size: 0.65em; width: 40px; line-height: 1.3;">📌</span>
+            <span><strong>Monday.com MCP</strong> — reads ticket spec directly. 27 content blocks fetched in the demo. No copy-paste, no misquote, no invented requirements.</span>
+          </li>
+          <li>
+            <span class="num" style="font-size: 0.65em; width: 40px; line-height: 1.3;">💬</span>
+            <span><strong>Slack MCP</strong> — posts updates when blocked, notifies on completion, searches discussions. Claude communicates without you as the relay.</span>
+          </li>
+          <li>
+            <span class="num" style="font-size: 0.65em; width: 40px; line-height: 1.3;">🏥</span>
+            <span><strong>Sedric Insights MCP</strong> — queries internal production data: orgs, interactions, STT configs, speaker ID metrics. Prod data in context.</span>
+          </li>
+        </ul>
+        <ul class="shipped-list" style="font-size: 0.42em;">
+          <li>
+            <span class="num" style="font-size: 0.65em; width: 40px; line-height: 1.3;">❄️</span>
+            <span><strong>Snowflake MCP</strong> — run analytics queries directly in the conversation. No context switching to a SQL client.</span>
+          </li>
+          <li>
+            <span class="num" style="font-size: 0.65em; width: 40px; line-height: 1.3;">🖥</span>
+            <span><strong>IDE MCP</strong> — surfaces inline type errors and diagnostics. Claude sees the same red squiggles you see, without you describing them.</span>
+          </li>
+          <li>
+            <span class="num" style="font-size: 0.65em; width: 40px; line-height: 1.3;">🔧</span>
+            <span><strong>gh CLI (via Bash)</strong> — not an MCP, but Claude uses it directly. Issues, PRs, checks — all without leaving the session.</span>
+          </li>
+        </ul>
+      </div>
+      <div class="callout" style="margin-top: 14px; font-size: 0.42em;">
+        Every MCP is a context source Claude can pull from. The richer the context — <em>the less you have to explain.</em>
       </div>
     </section>
 
@@ -708,7 +817,7 @@ OPENAI_API_KEY="sk-proj-..."</code></pre>
          SLIDE 6: WHAT WENT WRONG
     ═══════════════════════════════════════════ -->
     <section>
-      <span class="slide-num">05 / 10</span>
+      <span class="slide-num">07 / 11</span>
       <span class="tag">What Went Wrong First</span>
       <h2>The system exists<br>because things <em>broke</em></h2>
       <div class="divider"></div>
@@ -793,7 +902,7 @@ OPENAI_API_KEY="sk-proj-..."</code></pre>
          SLIDE 7: WHAT JUST HAPPENED
     ═══════════════════════════════════════════ -->
     <section>
-      <span class="slide-num">07 / 11</span>
+      <span class="slide-num">08 / 11</span>
       <span class="tag">What Just Happened</span>
       <h2>The full chain.</h2>
       <div class="divider"></div>
@@ -839,7 +948,7 @@ OPENAI_API_KEY="sk-proj-..."</code></pre>
          SLIDE 8: WHY IT DOESN'T BREAK
     ═══════════════════════════════════════════ -->
     <section>
-      <span class="slide-num">08 / 11</span>
+      <span class="slide-num">09 / 11</span>
       <span class="tag">The Process</span>
       <h2>Why it produces<br><em>working</em> code.</h2>
       <div class="divider"></div>
@@ -906,7 +1015,7 @@ OPENAI_API_KEY="sk-proj-..."</code></pre>
          SLIDE 11: THE TAKEAWAY
     ═══════════════════════════════════════════ -->
     <section>
-      <span class="slide-num">09 / 11</span>
+      <span class="slide-num">10 / 11</span>
       <span class="tag">One Thing to Take Home</span>
       <div style="margin-top: 48px;">
         <div class="big-quote">
