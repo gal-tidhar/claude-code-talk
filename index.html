@@ -795,61 +795,43 @@ OPENAI_API_KEY="sk-proj-..."</code></pre>
     <section>
       <span class="slide-num">07 / 11</span>
       <span class="tag">What Just Happened</span>
-      <h2>The full chain.<br>Start to shipped.</h2>
+      <h2>The full chain.</h2>
       <div class="divider"></div>
-      <div class="two-col" style="margin-top: 10px; grid-template-columns: 3fr 2fr; align-items: start;">
+      <div class="two-col" style="margin-top: 12px; gap: 16px; align-items: start;">
 
-        <div class="system-flow" style="gap: 6px;">
-          <div class="flow-box accent">
+        <div class="system-flow" style="gap: 7px;">
+          <div class="flow-box accent" style="padding: 10px 14px;">
             <strong>01 — Ticket read via MCP</strong><br>
             URL dropped in chat. 27 content blocks fetched. Zero copy-paste.
           </div>
-          <div class="flow-arrow">↓</div>
-          <div class="flow-box">
+          <div class="flow-box" style="padding: 10px 14px;">
             <strong>02 — Codebase survey</strong><br>
-            Explore subagent dispatched. 8 files read in parallel. Custom router pattern discovered.
+            Explore subagent dispatched. 8 files read in parallel. Custom router + custom FE routing discovered.
           </div>
-          <div class="flow-arrow">↓</div>
-          <div class="flow-box">
+          <div class="flow-box" style="padding: 10px 14px;">
             <strong>03 — Decisions before code</strong><br>
-            4 architecture + 3 design questions. ASCII mockups rendered. Human picked one.
+            4 architecture + 3 design questions. ASCII mockup previews rendered. Human picked one.
           </div>
-          <div class="flow-arrow">↓</div>
-          <div class="flow-box">
+        </div>
+
+        <div class="system-flow" style="gap: 7px;">
+          <div class="flow-box" style="padding: 10px 14px;">
             <strong>04 — Implementation</strong><br>
-            5 files written. Pattern-matched to existing codebase. Custom routing respected.
+            5 files written. Matched every codebase pattern exactly. PRD as the contract.
           </div>
-          <div class="flow-arrow">↓</div>
-          <div class="flow-box greened">
+          <div class="flow-box greened" style="padding: 10px 14px;">
             <strong>05 — Live validation</strong><br>
-            curl → Python contract assertion → 60-shot distribution test. All on the live server.
+            curl → Python contract assertion → 60-shot distribution test. On the live server.
           </div>
-          <div class="flow-arrow">↓</div>
-          <div class="flow-box greened">
+          <div class="flow-box greened" style="padding: 10px 14px;">
             <strong>06 — Issues closed</strong><br>
-            2 GitHub issues: opened and closed in the same session.
+            2 GitHub issues: opened before implementation, closed after validation.
           </div>
         </div>
 
-        <div style="display: flex; flex-direction: column; gap: 10px;">
-          <div class="col-label">CLAUDE.md — fired without reminders</div>
-          <div style="
-            font-family: var(--font-mono);
-            font-size: 0.4em;
-            color: var(--text-secondary);
-            line-height: 2;
-          ">
-            <div><span style="color: var(--green);">✓</span> aws_lambda_powertools.Logger</div>
-            <div><span style="color: var(--green);">✓</span> EM-based icon sizing</div>
-            <div><span style="color: var(--green);">✓</span> No inline comments</div>
-            <div><span style="color: var(--green);">✓</span> Fail fast, no graceful degradation</div>
-            <div><span style="color: var(--green);">✓</span> Never touched uvicorn directly</div>
-          </div>
-          <div class="callout" style="margin-top: 12px;">
-            Human keystrokes that<br>wrote code: <em>0</em>
-          </div>
-        </div>
-
+      </div>
+      <div class="callout" style="margin-top: 14px; font-size: 0.44em;">
+        Ticket URL in. Working full-stack feature out. Human keystrokes that wrote code: <em>0</em>
       </div>
     </section>
 
